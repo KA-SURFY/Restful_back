@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         imagename = "hojin19082/restful_back"
-        registryCredential = 'docker_hub'
+        registryCredential = 'docker-hub'
         dockerImage = ''
     }
 
