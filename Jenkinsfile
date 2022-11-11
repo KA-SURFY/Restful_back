@@ -3,7 +3,7 @@ node {
          checkout scm
      }
      stage('Build image') {
-         app = docker.build("hojin19082/Restful_back")
+         app = docker.build("hojin19082/restful_back")
      }
      stage('Push image') {
          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
@@ -14,7 +14,7 @@ node {
 }
 
 stage('Build image') {
-  app = docker.build("hojin19082/Restful_back")
+  app = docker.build("hojin19082/restful_back")
 }
 
 stage('Push image') {
