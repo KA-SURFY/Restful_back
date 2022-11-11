@@ -1,18 +1,26 @@
-pipeline {
-  agent any
-  stages {
-    stage('Compile') {
-      steps {
-        sh './gradlew compileJava'
-      }
-    }
+node {
+     stage('Clone repository') {
+         checkout scm
+     }
+     stage('Build image') {
+         app = docker.build("hojin19082/Restful_back")
+     }
+     stage('Push image') {
+         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+             app.push("${env.BUILD_NUMBER}")
+             app.push("latest")
+         }
+     }
+}
 
+stage('Build image') {
+  app = docker.build("hojin19082/Restful_back")
+}
 
-    stage('Build') {
-      steps {
-        sh './gradlew clean bootJar'
-      }
-    }
-
+stage('Push image') {
+  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') 
+  {
+     app.push("${env.BUILD_NUMBER}")
+     app.push("latest")
   }
 }
