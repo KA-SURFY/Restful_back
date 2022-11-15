@@ -92,11 +92,19 @@ pipeline {
             sh "git add back-deploy/deployment.yaml"
             sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
-          withCredentials([usernamePassword(credentialsId: 'github_cred')]) {
-              sh "git remote set-url origin https://github.com/KA-SURFY/argocd"
+          withCredentials([usernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
+              sh "git remote add origin https://github.com/KA-SURFY/argocd"
               sh "git push -u origin master"
             }
           }
+           post {
+                    failure {
+                      echo 'gitOps Update failure !'
+                    }
+                    success {
+                      echo 'gitOps Update success !'
+                    }
+            }
         }
     }
 }
