@@ -93,7 +93,7 @@ pipeline {
             sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
           withCredentials([usernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
-              sh "git remote add origin https://github.com/KA-SURFY/argocd"
+              sh "git remote set-url origin https://github.com/KA-SURFY/argocd.git"
               sh "git push -u origin master"
             }
           }
