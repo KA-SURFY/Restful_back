@@ -88,7 +88,7 @@ pipeline {
                     url: 'https://github.com/KA-SURFY/argocd.git',
                     branch: 'master'
             
-            sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/' deployment.yaml"
+            sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/' back-deploy/deployment.yaml"
             sh "git add deployment.yaml"
             sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
