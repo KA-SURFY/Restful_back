@@ -71,13 +71,30 @@ pipeline {
             echo 'Push Docker'
             script {
                 docker.withRegistry( '', registryCredential) {
-                    dockerImage.push("latest")  // ex) "1.0"
+                    dockerImage.push(${currentBuild.number})  // ex) "1.0"
                 }
             }
           }
           post {
             failure {
               error 'This pipeline stops here...'
+            }
+          }
+        }
+
+        stage('Deploy to dev') {
+          steps {
+            git credentialsId: 'github_cred',
+                    url: 'https://github.com/KA-SURFY/argocd.git',
+                    branch: 'master'
+            
+            sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/' deployment.yaml"
+            sh "git add deployment.yaml"
+            sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
+
+          withCredentials([usernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
+              sh "git remote set-url origin https://github.com/KA-SURFY/argocd"
+              sh "git push -u origin master"
             }
           }
         }
