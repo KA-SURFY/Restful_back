@@ -89,6 +89,8 @@ pipeline {
                     branch: 'master'
             
             sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/' back-deploy/deployment.yaml"
+            sh "git config user.name 'hojin19082'"
+            sh "git config user.email '905018@naver.com'"
             sh "git add back-deploy/deployment.yaml"
             sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
