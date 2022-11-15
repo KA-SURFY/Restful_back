@@ -84,7 +84,7 @@ pipeline {
 
         stage('Deploy to dev') {
           steps {
-            dir("gitOpsRepo"){
+
               git credentialsId: 'github_cred',
                       url: 'https://github.com/KA-SURFY/argocd.git',
                       branch: 'master'
@@ -98,7 +98,7 @@ pipeline {
                 sh "git push -u origin master"
               }
             }
-          }
+
            post {
                     failure {
                       echo 'gitOps Update failure !'
