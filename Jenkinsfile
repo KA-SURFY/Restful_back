@@ -84,17 +84,19 @@ pipeline {
 
         stage('Deploy to dev') {
           steps {
-            git credentialsId: 'github_cred',
-                    url: 'https://github.com/KA-SURFY/argocd.git',
-                    branch: 'master'
-            
-            sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/g' back-deploy/deployment.yaml"
-            sh "git add back-deploy/deployment.yaml"
-            sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
+            dir("gitOpsRepo"){
+              git credentialsId: 'github_cred',
+                      url: 'https://github.com/KA-SURFY/argocd.git',
+                      branch: 'master'
+              
+              sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/g' back-deploy/deployment.yaml"
+              sh "git add back-deploy/deployment.yaml"
+              sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
-          withCredentials([usernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
-              sh "git remote set-url origin https://github.com/KA-SURFY/argocd.git"
-              sh "git push -u origin master"
+              withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
+                sh "git remote set-url origin https://github.com/KA-SURFY/argocd.git"
+                sh "git push -u origin master"
+              }
             }
           }
            post {
