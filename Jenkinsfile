@@ -71,7 +71,7 @@ pipeline {
             echo 'Push Docker'
             script {
                 docker.withRegistry( '', registryCredential) {
-                    dockerImage.push(${currentBuild.number})  // ex) "1.0"
+                    dockerImage.push("${currentBuild.number}")  // ex) "1.0"
                 }
             }
           }
