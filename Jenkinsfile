@@ -94,17 +94,17 @@ pipeline {
               sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
               withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
-                sh "git remote set-url origin https://github.com/KA-SURFY/argocd.git"
-                sh "git push -u origin master"
+                sh "git remote set-url origin https://github.com/KA-SURFY/argocd"
+                sh "git push origin master"
               }
             }
 
            post {
                     failure {
-                      echo 'gitOps Update failure !'
+                      echo 'Update 실패ㅠㅠ'
                     }
                     success {
-                      echo 'gitOps Update success !'
+                      echo 'Update 성공!!!!!!!'
                     }
             }
         }
