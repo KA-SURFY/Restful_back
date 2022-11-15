@@ -89,7 +89,7 @@ pipeline {
                     branch: 'master'
             
             sh "sed -i 's/restful_back:.*\$/restful_back:${currentBuild.number}/' back-deploy/deployment.yaml"
-            sh "git add deployment.yaml"
+            sh "git add back-deploy/deployment.yaml"
             sh "git commit -m '[UPDATE] restful_back ${currentBuild.number} image versioning'"
 
           withCredentials([usernamePassword(credentialsId: 'github_cred', gitToolName: 'git-tool')]) {
