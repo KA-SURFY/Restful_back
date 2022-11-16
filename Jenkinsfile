@@ -101,7 +101,7 @@ pipeline {
 
            post {
                     failure {
-                      echo 'Update 실패ㅠㅠ'
+                      echo 'Update 실패ㅠㅠ 간다'
                     }
                     success {
                       echo 'Update 성공!!!!!!!'
