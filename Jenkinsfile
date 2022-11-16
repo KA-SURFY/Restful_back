@@ -100,7 +100,7 @@ pipeline {
                       echo 'Update 실패ㅠㅠ'
                     }
                     success {
-                      echo 'Update 성공!!!!!!!'
+                      echo 'Update 성공!!!!!!!jenkins 서버 용량 문제 해결 '
                     }
             }
         }
