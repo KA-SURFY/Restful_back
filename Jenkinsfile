@@ -100,7 +100,7 @@ pipeline {
                       echo 'Update 실패ㅠㅠ'
                     }
                     success {
-                      echo 'Update 성공!!!! 고고고'
+                      echo 'Update 성공!!!!!!!'
                     }
             }
         }
