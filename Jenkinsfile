@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM('*/3 * * * *')
-    }
-
     environment {
         imagename = "hojin19082/restful_back"
         registryCredential = 'docker-hub'
@@ -104,7 +100,7 @@ pipeline {
                       echo 'Update 실패ㅠㅠ'
                     }
                     success {
-                      echo 'Update 성공!!!!!!!'
+                      echo 'Update 성공!!!! 고고고'
                     }
             }
         }
