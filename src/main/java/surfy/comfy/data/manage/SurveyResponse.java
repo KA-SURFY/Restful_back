@@ -7,7 +7,6 @@ import surfy.comfy.entity.Survey;
 import surfy.comfy.type.SurveyType;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor

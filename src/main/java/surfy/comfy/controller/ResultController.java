@@ -9,10 +9,8 @@ import surfy.comfy.config.BaseResponse;
 import surfy.comfy.data.result.QuestionAnswerResponse;
 import surfy.comfy.data.result.SurveyResultResponse;
 import surfy.comfy.data.result.RespondentsResponse;
-import surfy.comfy.entity.Answer;
 import surfy.comfy.entity.Grid;
 import surfy.comfy.entity.Option;
-import surfy.comfy.entity.Question;
 import surfy.comfy.service.ResultService;
 
 import java.util.List;

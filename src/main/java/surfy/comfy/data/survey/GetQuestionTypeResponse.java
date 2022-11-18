@@ -1,15 +1,10 @@
 package surfy.comfy.data.survey;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.SneakyThrows;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
 import surfy.comfy.entity.Question;
 import surfy.comfy.type.QuestionType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

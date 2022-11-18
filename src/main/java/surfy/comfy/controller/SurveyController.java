@@ -8,9 +8,7 @@ import surfy.comfy.config.BaseResponse;
 import surfy.comfy.data.manage.DeleteSurveyResponse;
 import surfy.comfy.data.manage.FinishSurveyResponse;
 import surfy.comfy.data.manage.SurveyResponse;
-import surfy.comfy.data.survey.GetSurveyResponse;
 import surfy.comfy.data.survey.PostSurveyResponse;
-import surfy.comfy.entity.Survey;
 import surfy.comfy.service.SurveyService;
 import surfy.comfy.type.SurveyType;
 

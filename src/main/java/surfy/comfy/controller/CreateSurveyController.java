@@ -10,7 +10,6 @@ import surfy.comfy.repository.*;
 import surfy.comfy.service.CreateSurveyService;
 import surfy.comfy.type.SurveyType;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class CreateSurveyController {
         System.out.println("email: "+request.getEmail());
         System.out.println("imgSrc: "+request.getImgSrc());
         System.out.println("bgColor: "+request.getBgColor());
-        String binaryData=request.getImgSrc();
+        
 
         return new BaseResponse<>("ggg");
     }

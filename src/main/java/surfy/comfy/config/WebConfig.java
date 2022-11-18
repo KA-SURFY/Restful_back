@@ -35,7 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
 //                .allowedOrigins("*");
 
         registry.addMapping("/**")
-                .allowedOrigins("http://www.commfy.shop:3000")
+                .allowedOrigins("http://www.commfy.shop")
                 .exposedHeaders("ACCESS_TOKEN")
                 .exposedHeaders("REFRESH_TOKEN")
                 .exposedHeaders("msg") // 서버에서 반환할 헤더

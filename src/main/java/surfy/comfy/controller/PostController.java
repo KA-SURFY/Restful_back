@@ -5,17 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import surfy.comfy.config.BaseResponse;
-import surfy.comfy.data.bookmark.PostBookmarkResponse;
 import surfy.comfy.data.manage.SurveyResponse;
 import surfy.comfy.data.post.*;
-import surfy.comfy.entity.Post;
-import surfy.comfy.repository.PostRepository;
 import surfy.comfy.service.BookmarkService;
 import surfy.comfy.service.PostService;
 import surfy.comfy.service.SurveyService;
-import surfy.comfy.type.SurveyType;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,7 +19,6 @@ public class PostController {
     private final PostService postService;
     private final SurveyService surveyService;
     private final BookmarkService bookmarkService;
-    private final PostRepository postRepository;
 
     private final Logger logger= LoggerFactory.getLogger(PostController.class);
 

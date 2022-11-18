@@ -10,7 +10,6 @@ import surfy.comfy.data.survey.GetSurveyDataResponse;
 import surfy.comfy.entity.Survey;
 import surfy.comfy.repository.SurveyRepository;
 import surfy.comfy.service.AnswerService;
-import surfy.comfy.service.CreateSurveyService;
 
 import javax.transaction.Transactional;
 

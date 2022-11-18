@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import surfy.comfy.entity.*;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor

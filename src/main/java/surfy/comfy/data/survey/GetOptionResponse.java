@@ -3,7 +3,6 @@
 package surfy.comfy.data.survey;
 
 import lombok.Data;
-import surfy.comfy.entity.Grid;
 import surfy.comfy.entity.Option;
 @Data
 public class GetOptionResponse {
