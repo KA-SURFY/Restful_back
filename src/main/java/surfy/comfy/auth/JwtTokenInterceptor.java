@@ -34,9 +34,9 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         logger.info("==============================================");
         logger.info("preHandle method: {}",request.getMethod());
         logger.info("JwtToken 호출");
-        String accessToken = request.getHeader("ACCESS_TOKEN");
+        String accessToken = request.getHeader("accesstoken");
         logger.info("AccessToken: {}",accessToken);
-        String refreshToken = request.getHeader("REFRESH_TOKEN");
+        String refreshToken = request.getHeader("refreshtoken");
         logger.info("RefreshToken: {}",refreshToken);
         logger.info("Request URL: {}",request.getRequestURL());
 
