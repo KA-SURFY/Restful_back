@@ -32,22 +32,9 @@ public class OAuthController {
         //return new BaseResponse<>(redirectUrl);
     }
 
-//    @GetMapping(value = "/auth/{socialLoginType}/callback")
-//    public BaseResponse<TokenResponse> callback (
-//            @PathVariable(name = "socialLoginType") String socialLoginPath,
-//            @RequestParam(name = "code") String code)throws IOException, BaseException {
-//        System.out.println(">> 소셜 로그인 API 서버로부터 받은 code :"+ code);
-//        SocialLoginType socialLoginType= SocialLoginType.valueOf(socialLoginPath.toUpperCase());
-//        logger.info("socialLoginType:{}",socialLoginType);
-//        TokenResponse tokenResponse=oAuthService.oAuthLogin(socialLoginType,code);
-//
-//        return new BaseResponse<>(tokenResponse);
-//    }
-
-
     // 구글 로그인 - 프론트에서 accessToken을 받음.
-    @GetMapping(value="/login/google/{accesstoken}")
-    public BaseResponse<TokenResponse> googleLogin(@PathVariable(name="accesstoken") String accessToken) throws IOException, NoSuchAlgorithmException {
+    @GetMapping(value="/login/google/{accessToken}")
+    public BaseResponse<TokenResponse> googleLogin(@PathVariable(name="accessToken") String accessToken) throws IOException, NoSuchAlgorithmException {
 //    public BaseResponse<TokenResponse> login(@PathVariable(name = "socialLoginType") String socialLoginPath, @RequestParam(name="accessToken") String accessToken) throws IOException {
         //logger.info("[login] socialLoginType: {}",socialLoginPath);
         logger.info("[login] accessToken: {}",accessToken);
@@ -57,15 +44,6 @@ public class OAuthController {
 
         return new BaseResponse<>(tokenResponse);
     }
-
-//    @GetMapping("/login/kakao/{code}")
-//    public BaseResponse<TokenResponse> kakaoLogin(@PathVariable(name="code")String code) throws IOException {
-//        logger.info("[KAKAO LOGIN]");
-//        SocialLoginType socialLoginType= SocialLoginType.valueOf("kakao".toUpperCase());
-//        TokenResponse tokenResponse=oAuthService.oAuthLogin(socialLoginType,code);
-//
-//        return new BaseResponse<>(tokenResponse);
-//    }
 
     @DeleteMapping("/logout/{memberId}")
     public BaseResponse<String> logout(@PathVariable(name="memberId")Long memberId){
