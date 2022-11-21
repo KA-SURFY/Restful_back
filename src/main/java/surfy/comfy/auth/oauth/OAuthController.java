@@ -46,8 +46,8 @@ public class OAuthController {
 
 
     // 구글 로그인 - 프론트에서 accessToken을 받음.
-    @GetMapping(value="/login/google/{accessToken}")
-    public BaseResponse<TokenResponse> googleLogin(@PathVariable(name="accessToken") String accessToken) throws IOException, NoSuchAlgorithmException {
+    @GetMapping(value="/login/google/{accesstoken}")
+    public BaseResponse<TokenResponse> googleLogin(@PathVariable(name="accesstoken") String accessToken) throws IOException, NoSuchAlgorithmException {
 //    public BaseResponse<TokenResponse> login(@PathVariable(name = "socialLoginType") String socialLoginPath, @RequestParam(name="accessToken") String accessToken) throws IOException {
         //logger.info("[login] socialLoginType: {}",socialLoginPath);
         logger.info("[login] accessToken: {}",accessToken);
