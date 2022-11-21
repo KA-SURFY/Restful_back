@@ -23,7 +23,7 @@ spring:
         url: https://accounts.google.com/o/oauth2/v2/auth
         client-id: 150579669124-iuljf351licgh2lg7s35t1fcn9ct6k2h.apps.googleusercontent.com
         client-secret: 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
-        callback-url: http://www.commfy.shop/auth/google/callback
+        callback-url: http://www.commfy.shop/auth/google/login/callback
         scope: https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
 
       kakao:
@@ -32,4 +32,3 @@ spring:
         token-uri: https://kauth.kakao.com/oauth/token
         user-info-uri: https://kapi.kakao.com/v2/user/me
         user-name-attribute: id
-
