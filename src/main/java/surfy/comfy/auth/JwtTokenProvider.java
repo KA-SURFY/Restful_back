@@ -10,12 +10,12 @@ import surfy.comfy.entity.Token;
 import surfy.comfy.repository.TokenRepository;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Component
@@ -23,10 +23,6 @@ public class JwtTokenProvider {
 
     Logger logger= LoggerFactory.getLogger(JwtTokenProvider.class);
     private final TokenRepository tokenRepository;
-//    @Value("${jwt.secret.access}")
-//    private String SECRET_KEY;
-//    @Value("${jwt.secret.refresh}")
-//    private String REFRESH_KEY;
     private String SECRET_KEY="236979CB6F1AD6B6A6184A31E6BE37DB3818CC36871E26235DD67DCFE404149232r32rwerf";
 
     private String REFRESH_KEY="afkljeoiwajtgfasjdfhwerklawejriwjrewkhrjwajfejfkjawekraewradfaer3247hfkjashf9o3wrhkjgdfakhf3e9o5y8y4hfkjhfakjdhfwkerhwkahrfklwejr1l2kjeksekf";
@@ -34,8 +30,8 @@ public class JwtTokenProvider {
     // 1 * 60 * 1000L;   // 1분
     // 1 * 30 * 1000L;   // 30초
     // 60 * 60 * 24 * 7 * 1000L; //1주
-    private final long ACCESS_TOKEN_VALID_TIME = 1 * 10 * 1000L;
-    private final long REFRESH_TOKEN_VALID_TIME = 10 * 60 * 1000L;;
+    private final long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L; //30분
+    private final long REFRESH_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L; //14일
 
     // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
@@ -77,21 +73,6 @@ public class JwtTokenProvider {
                 .signWith(getSignKey(REFRESH_KEY))
                 .compact();
     }
-
-    // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
-    public String resolveAccessToken(HttpServletRequest request) {
-        return request.getHeader("ACCESS_TOKEN");
-    }
-
-    public String resolveRefreshToken(HttpServletRequest request) {
-        return request.getHeader("REFRESH_TOKEN");
-    }
-
-    //Refresh 토큰의 DB상의 인덱스 번호를 해시로 받음
-    public Long resolveRefreshIndexToken(HttpServletRequest request) {
-        return Long.parseLong(request.getHeader("REFRESH_TOKEN_INDEX"));
-    }
-
     public Claims getClaimsFormToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKey(SECRET_KEY))
@@ -124,27 +105,38 @@ public class JwtTokenProvider {
         } catch (NullPointerException exception) {
             System.out.println("Token is null");
             return false;
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Token is Empty");
+            return false;
         }
     }
     public boolean isValidRefreshToken(String tokenId) {
-        System.out.println("isValidRefreshTokenId is : " +tokenId);
-        String refreshToken=tokenRepository.findByRefreshTokenIdxEncrypted(tokenId).get().getRefreshToken();
-        try{
+        System.out.println("isValidRefreshTokenId is : " + tokenId);
+        String refreshToken = "";
+        try {
+            refreshToken = tokenRepository.findByRefreshTokenIdxEncrypted(tokenId).get().getRefreshToken();
             Claims refreshClaims = getClaimsToken(refreshToken);
-            logger.info("Refresh expireTime: {}",refreshClaims.getExpiration());
-            logger.info("Refresh email: {}",refreshClaims.get("email"));
+            logger.info("Refresh expireTime: {}", refreshClaims.getExpiration());
+            logger.info("Refresh email: {}", refreshClaims.get("email"));
 
             return true;
-        }  catch (ExpiredJwtException exception) { // 리프레시 토큰 만료
-            Token token= tokenRepository.findByRefreshToken(refreshToken).get();
+        } catch (ExpiredJwtException exception) { // 리프레시 토큰 만료
+            Token token = tokenRepository.findByRefreshToken(refreshToken).get();
             tokenRepository.delete(token);
+
             System.out.println("Token Expired email : " + exception.getClaims().get("email"));
             return false;
         } catch (JwtException exception) {
-            System.out.println("Refresh Token Tampered");
+            System.out.println("Refresh Token Tampered.");
             return false;
         } catch (NullPointerException exception) {
-            System.out.println("Token is null");
+            System.out.println("Token is null.");
+            return false;
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Token is Empty.");
+            return false;
+        } catch (NoSuchElementException exception) {
+            System.out.println("RefreshToken is invalid.");
             return false;
         }
 //        try {
@@ -166,24 +158,6 @@ public class JwtTokenProvider {
 //            System.out.println("Token is null");
 //            return false;
 //        }
-    }
-    public boolean isOnlyExpiredToken(String token) {
-        System.out.println("isValidToken is : " +token);
-        try {
-            Claims accessClaims = getClaimsFormToken(token);
-            System.out.println("Access expireTime: " + accessClaims.getExpiration());
-            System.out.println("Access email: " + accessClaims.get("email"));
-            return false;
-        } catch (ExpiredJwtException exception) {
-            System.out.println("Token Expired email : " + exception.getClaims().get("email"));
-            return true;
-        } catch (JwtException exception) {
-            System.out.println("Token Tampered");
-            return false;
-        } catch (NullPointerException exception) {
-            System.out.println("Token is null");
-            return false;
-        }
     }
 
     // refresh token index 암호화

@@ -7,26 +7,25 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import surfy.comfy.auth.JwtTokenInterceptor;
 
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    private final JwtTokenInterceptor jwtTokenInterceptor;
+    // private final JwtTokenInterceptor jwtTokenInterceptor;
 
 
 
-    public void addInterceptors(InterceptorRegistry registry) {
-        // TODO: jwt interceptor addPathPatterns 수정 필요
-        registry.addInterceptor(jwtTokenInterceptor)
-                .addPathPatterns("/myPage/**")
-                .addPathPatterns("/surveys/**")
-                .addPathPatterns("/result/**")
-                ;
+    // public void addInterceptors(InterceptorRegistry registry) {
+    //     // TODO: jwt interceptor addPathPatterns 수정 필요
+    //     registry.addInterceptor(jwtTokenInterceptor)
+    //             .addPathPatterns("/myPage/**")
+    //             .addPathPatterns("/surveys/**")
+    //             .addPathPatterns("/result/**")
+    //             ;
 
 
-    }
+    // }
 
     @Override
     public void addCorsMappings(CorsRegistry registry){
